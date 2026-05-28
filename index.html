@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Signature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1535;
+    --deep: #080d22;
+    --accent: #7eb8d4;
+    --accent2: #a8d8ea;
+    --light: #e8f4f8;
+    --white: #ffffff;
+    --muted: rgba(255,255,255,0.45);
+    --border: rgba(126,184,212,0.2);
+    --glow: rgba(126,184,212,0.08);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--deep);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    transform: translate(-50%,-50%);
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(126,184,212,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    transform: translate(-50%,-50%);
+  }
+  body:hover .cursor-ring { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    background: rgba(8,13,34,0.7);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+ .nav-logo img{
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 900px){
+  .nav-logo img{
+    height: 58px;
+  }
+}
+  .nav-logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+  }
+  .nav-logo-mark {
+    color: var(--accent);
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent) !important;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.15em !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--deep) !important; }
+  .nav-cta::after { display: none !important; }
+
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    background: rgba(126,184,212,0.04);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: none;
+    z-index: 102;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 4rem 4rem;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(126,184,212,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 15% 80%, rgba(126,184,212,0.04) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(126,184,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(126,184,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-left {}
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero-h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--deep);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.5s forwards;
+  }
+  .hero-card {
+    background: linear-gradient(135deg, rgba(126,184,212,0.08), rgba(126,184,212,0.02));
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(126,184,212,0.1);
+    border: 1px solid rgba(126,184,212,0.2);
+    padding: 0.35rem 0.8rem;
+  }
+  .hero-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .hero-stat {}
+  .hero-stat-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+  .hero-stat-num span { color: var(--accent); }
+  .hero-stat-label {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 0.4rem;
+  }
+
+  /* SECTIONS GENERAL */
+  section { padding: 6rem 4rem; }
+  .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .section-h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-h2 em { font-style: normal; color: var(--accent); }
+  .section-desc {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--navy); }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-box {
+    background: linear-gradient(135deg, rgba(126,184,212,0.06), rgba(15,21,53,0.8));
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 3rem;
+    position: relative;
+  }
+  .about-box::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; right: -8px;
+    left: 8px; top: 8px;
+    border: 1px solid rgba(126,184,212,0.1);
+    border-radius: 2px;
+    z-index: -1;
+  }
+  .about-quote {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--light);
+    margin-bottom: 1.5rem;
+  }
+  .about-author {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .about-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  .about-pillar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    background: rgba(126,184,212,0.03);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .about-pillar:hover { background: rgba(126,184,212,0.06); border-color: rgba(126,184,212,0.3); }
+  .pillar-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 2.5rem;
+    text-align: center;
+  }
+  .pillar-text {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--light);
+  }
+  .pillar-text span {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 0.15rem;
+  }
+
+  /* SERVICES */
+  .services { background: var(--deep); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .service-item {
+    background: var(--deep);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: none;
+  }
+  .service-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-item:hover { background: rgba(126,184,212,0.04); }
+  .service-item:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(126,184,212,0.4);
+    margin-bottom: 1.2rem;
+  }
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .service-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--light);
+  }
+  .service-desc {
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+  }
+  .service-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: rgba(126,184,212,0.08);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* PROCESS */
+  .process { background: var(--navy); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2rem; left: 4rem; right: 4rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent), var(--accent), transparent);
+    opacity: 0.25;
+  }
+  .process-step {
+    position: relative;
+  }
+  .step-num-wrap {
+    width: 4rem; height: 4rem;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background: var(--navy);
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .step-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    color: var(--light);
+  }
+  .step-desc {
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* EVENTS */
+  .events { background: var(--deep); }
+  .events-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .event-card {
+    background: var(--deep);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: none;
+  }
+  .event-card:hover { background: rgba(126,184,212,0.04); }
+  .event-card.large { grid-row: span 2; }
+  .event-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+  .event-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--light);
+  }
+  .event-desc {
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .event-badge {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    background: rgba(126,184,212,0.1);
+    border: 1px solid rgba(126,184,212,0.2);
+    padding: 0.3rem 0.7rem;
+    text-transform: uppercase;
+  }
+
+  /* 3D / FABRICATION */
+  .fabrication { background: var(--navy); }
+  .fab-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .fab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .fab-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+    cursor: none;
+  }
+  .fab-item:hover { border-color: rgba(126,184,212,0.4); background: rgba(126,184,212,0.04); }
+  .fab-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.45rem;
+  }
+  .fab-text {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--light);
+  }
+  .fab-text span {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  .fab-visual {
+    position: relative;
+  }
+  .fab-display {
+    border: 1px solid var(--border);
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(126,184,212,0.05), transparent);
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fab-display::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(126,184,212,0.03) 30px, rgba(126,184,212,0.03) 31px),
+      repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(126,184,212,0.03) 30px, rgba(126,184,212,0.03) 31px);
+  }
+  .fab-3d-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(126,184,212,0.3);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    line-height: 1;
+    animation: pulse3d 3s ease-in-out infinite;
+  }
+  @keyframes pulse3d {
+    0%, 100% { -webkit-text-stroke-color: rgba(126,184,212,0.3); }
+    50% { -webkit-text-stroke-color: rgba(126,184,212,0.7); }
+  }
+  .fab-corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--accent);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .fab-corner.tl { top: 1rem; left: 1rem; border-width: 1px 0 0 1px; }
+  .fab-corner.tr { top: 1rem; right: 1rem; border-width: 1px 1px 0 0; }
+  .fab-corner.bl { bottom: 1rem; left: 1rem; border-width: 0 0 1px 1px; }
+  .fab-corner.br { bottom: 1rem; right: 1rem; border-width: 0 1px 1px 0; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(126,184,212,0.06) 0%, transparent 70%);
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-info {}
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 300;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(126,184,212,0.04); }
+  .contact-link-icon { font-size: 1.1rem; }
+  .contact-form {
+    background: rgba(126,184,212,0.03);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  .form-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .form-input, .form-textarea {
+    width: 100%;
+    background: rgba(8,13,34,0.8);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-textarea { min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--deep);
+    border: none;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .form-submit:hover { background: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .footer-mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: rgba(126,184,212,0.4);
+    text-transform: uppercase;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-logo-img { width: 42px; height: 42px; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 73px;
+      left: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.8rem;
+      background: rgba(8,13,34,0.96);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      transform: translateY(-12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-links.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-links li { list-style: none; }
+    .nav-links a {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(126,184,212,0.12);
+    }
+    .nav-links li:last-child a { border-bottom: 0; }
+    .nav-cta { text-align: center; margin-top: 0.4rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-right { display: none; }
+    .about-inner, .fab-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .events-grid { grid-template-columns: 1fr; }
+    .event-card.large { grid-row: span 1; }
+    footer { padding: 2rem 1.5rem; }
+    .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .nav-logo-text { font-size: 1.05rem; }
+    .nav-logo-sub { font-size: 0.5rem; }
+    .services-grid, .form-row { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero" aria-label="Andrew Signature - Accueil">
+    <img class="nav-logo" src="Andrew Signature - Logo.png" alt="Logo Andrew Signature">
+  </a>
+
+  <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#evenements">Événements</a></li>
+    <li><a href="#fabrication">Fabrication</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Créateur d'expériences</div>
+      <h1 class="hero-h1">
+        Donnez à vos projets<br>
+        la <em>Signature</em><br>
+        qu'ils méritent
+      </h1>
+      <p class="hero-desc">
+        Technologie, audiovisuel et création sur mesure — une expertise complète 
+        pour des projets professionnels qui laissent une impression durable.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Démarrer un projet <span>→</span></a>
+        <a href="#services" class="btn-outline">Nos services</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-tags">
+          <span class="hero-tag">Développement Web</span>
+          <span class="hero-tag">Audio Pro</span>
+          <span class="hero-tag">Éclairage</span>
+          <span class="hero-tag">DJ</span>
+          <span class="hero-tag">Impression 3D</span>
+          <span class="hero-tag">Découpe Laser</span>
+          <span class="hero-tag">Branding</span>
+          <span class="hero-tag">IT & Solutions</span>
+        </div>
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <div class="hero-stat-num">10<span>+</span></div>
+            <div class="hero-stat-label">Services complémentaires</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">3<span>∿</span></div>
+            <div class="hero-stat-label">Domaines d'expertise</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">1<span>∞</span></div>
+            <div class="hero-stat-label">Vision créative unifiée</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">∿</div>
+            <div class="hero-stat-label">Signature sur chaque projet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-label reveal">Notre identité</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Là où la technologie<br>
+          rencontre la <em>création</em>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Fondée par Andrew Aboujaoudé, Andrew Signature est née de la fusion entre expertise technique et vision artistique. Chaque projet est une opportunité de créer quelque chose d'unique — fonctionnel, élégant et mémorable.
+        </p>
+        <div class="about-pillars reveal reveal-delay-3">
+          <div class="about-pillar">
+            <span class="pillar-icon">💻</span>
+            <div class="pillar-text">
+              Développement technologique
+              <span>Web, IT, systèmes et solutions numériques</span>
+            </div>
+          </div>
+          <div class="about-pillar">
+            <span class="pillar-icon">🔊</span>
+            <div class="pillar-text">
+              Expertise audiovisuelle
+              <span>Audio, éclairage, DJ et gestion d'événements</span>
+            </div>
+          </div>
+          <div class="about-pillar">
+            <span class="pillar-icon">🎨</span>
+            <div class="pillar-text">
+              Création personnalisée
+              <span>Impression 3D, découpe laser, branding visuel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual reveal reveal-delay-2">
+        <div class="about-box">
+          <div class="about-quote">
+            "Concevoir des expériences techniques et visuelles qui laissent une signature unique."
+          </div>
+          <div class="about-author">— Andrew Aboujaoudé, Fondateur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-label reveal">Ce que nous faisons</div>
+    <h2 class="section-h2 reveal reveal-delay-1">Services <em>complets</em></h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Une approche à 360° pour tous vos besoins — du développement logiciel à l'événementiel, en passant par la fabrication numérique.
+    </p>
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <div class="service-num">01</div>
+        <span class="service-icon">🌐</span>
+        <div class="service-title">Développement Web & IT</div>
+        <p class="service-desc">Sites web sur mesure, applications, intégration de systèmes et support informatique professionnel pour entreprises et organisations.</p>
+        <div class="service-tags">
+          <span class="service-tag">Web</span>
+          <span class="service-tag">App</span>
+          <span class="service-tag">Support IT</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <span class="service-icon">🔊</span>
+        <div class="service-title">Audio Professionnel</div>
+        <p class="service-desc">Installation, calibration et optimisation de systèmes sonores. Sonorisation d'événements, de salles et de productions avec matériel haut de gamme.</p>
+        <div class="service-tags">
+          <span class="service-tag">Installation</span>
+          <span class="service-tag">Calibration</span>
+          <span class="service-tag">Live</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <span class="service-icon">💡</span>
+        <div class="service-title">Éclairage Événementiel</div>
+        <p class="service-desc">Conception et déploiement d'environnements lumineux pour événements, salles, scènes et espaces architecturaux. Ambiances sur mesure.</p>
+        <div class="service-tags">
+          <span class="service-tag">Architectural</span>
+          <span class="service-tag">Scène</span>
+          <span class="service-tag">Ambiance</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-1">
+        <div class="service-num">04</div>
+        <span class="service-icon">🎧</span>
+        <div class="service-title">DJ & Animation Musicale</div>
+        <p class="service-desc">Animation professionnelle pour mariages, galas, événements corporatifs, soirées et festivals. Setlists personnalisées et gestion complète de l'ambiance.</p>
+        <div class="service-tags">
+          <span class="service-tag">Mariage</span>
+          <span class="service-tag">Corporatif</span>
+          <span class="service-tag">Festival</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-2">
+        <div class="service-num">05</div>
+        <span class="service-icon">🖨️</span>
+        <div class="service-title">Impression 3D</div>
+        <p class="service-desc">Fabrication de prototypes, décorations, trophées, accessoires et pièces personnalisées. Conception assistée par ordinateur et production rapide.</p>
+        <div class="service-tags">
+          <span class="service-tag">Prototypage</span>
+          <span class="service-tag">Décoration</span>
+          <span class="service-tag">Sur mesure</span>
+        </div>
+      </div>
+      <div class="service-item reveal reveal-delay-3">
+        <div class="service-num">06</div>
+        <span class="service-icon">⚡</span>
+        <div class="service-title">Découpe Laser & Design</div>
+        <p class="service-desc">Enseignes, logo découpé, branding visuel, cadeaux corporatifs et éléments décoratifs réalisés avec précision grâce à la découpe laser numérique.</p>
+        <div class="service-tags">
+          <span class="service-tag">Laser</span>
+          <span class="service-tag">Branding</span>
+          <span class="service-tag">Cadeaux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-label reveal">Notre approche</div>
+    <h2 class="section-h2 reveal reveal-delay-1">Du concept à la <em>réalité</em></h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Chaque projet suit un processus rigoureux qui garantit qualité, précision et satisfaction à chaque étape.
+    </p>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num-wrap"><span class="step-num">01</span></div>
+        <div class="step-title">Consultation</div>
+        <p class="step-desc">Échange approfondi pour comprendre vos besoins, votre vision et vos objectifs. Analyse technique et créative de votre projet.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="step-num-wrap"><span class="step-num">02</span></div>
+        <div class="step-title">Conception</div>
+        <p class="step-desc">Élaboration d'une solution sur mesure. Plans techniques, maquettes visuelles et stratégie adaptés à votre réalité.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="step-num-wrap"><span class="step-num">03</span></div>
+        <div class="step-title">Réalisation</div>
+        <p class="step-desc">Exécution précise et professionnelle. Installation, développement et fabrication avec les meilleurs outils et matériaux.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="step-num-wrap"><span class="step-num">04</span></div>
+        <div class="step-title">Livraison</div>
+        <p class="step-desc">Remise du projet, tests complets et accompagnement post-livraison. Votre satisfaction est notre priorité absolue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉVÉNEMENTS -->
+<section class="events" id="evenements">
+  <div class="container">
+    <div class="section-label reveal">Événementiel</div>
+    <h2 class="section-h2 reveal reveal-delay-1">
+      Des événements bien pensés,<br>
+      une exécution <em>technique</em>
+    </h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Andrew Signature accompagne les petits et moyens événements avec une approche professionnelle : sonorisation, éclairage, ambiance musicale et gestion technique adaptée à chaque contexte.
+    </p>
+
+    <div class="events-grid reveal reveal-delay-2">
+      <div class="event-card large">
+        <span class="event-badge">Signature</span>
+        <span class="event-icon">🎛️</span>
+        <div class="event-title">Événements privés & corporatifs</div>
+        <p class="event-desc">
+          Sonorisation, éclairage et gestion technique pour événements de petite et moyenne envergure. Andrew Signature crée des ambiances professionnelles, propres et immersives pour soirées privées, événements d’entreprise, galas, lancements, activités locales et rassemblements communautaires.
+          <br><br>
+          Chaque installation est pensée pour être fiable, élégante et bien adaptée à l’espace, au public et au type d’événement.
+        </p>
+      </div>
+
+      <div class="event-card">
+        <span class="event-icon">🏢</span>
+        <div class="event-title">Corporatif & professionnel</div>
+        <p class="event-desc">
+          Soirées d’entreprise, réseautage, présentations, remises de prix et lancements avec une image technique soignée.
+        </p>
+      </div>
+
+      <div class="event-card">
+        <span class="event-icon">🎧</span>
+        <div class="event-title">DJ & ambiance musicale</div>
+        <p class="event-desc">
+          Animation musicale adaptée à l’événement, au public et à l’énergie recherchée, sans formule générique.
+        </p>
+      </div>
+
+      <div class="event-card">
+        <span class="event-icon">🌱</span>
+        <div class="event-title">Communautaire & jeunesse</div>
+        <p class="event-desc">
+          Activités, soirées, fêtes locales et événements associatifs avec une approche accessible, dynamique et bien organisée.
+        </p>
+      </div>
+
+      <div class="event-card">
+        <span class="event-icon">🎭</span>
+        <div class="event-title">Productions locales</div>
+        <p class="event-desc">
+          Support audio, lumière et technique pour spectacles, animations, performances et projets culturels de petite à moyenne taille.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FABRICATION -->
+<section class="fabrication" id="fabrication">
+  <div class="container">
+    <div class="fab-inner">
+      <div>
+        <div class="section-label reveal">Fabrication numérique</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Créations <em>3D</em> &<br>
+          découpe laser
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          L'atelier numérique d'Andrew Signature transforme vos idées en objets tangibles. De la conception à la fabrication, chaque pièce est créée avec soin et précision.
+        </p>
+        <div class="fab-list reveal reveal-delay-2">
+          <div class="fab-item">
+            <div class="fab-dot"></div>
+            <div class="fab-text">
+              Décorations & éléments d'ambiance
+              <span>Pièces uniques pour événements et espaces</span>
+            </div>
+          </div>
+          <div class="fab-item">
+            <div class="fab-dot"></div>
+            <div class="fab-text">
+              Enseignes & signalétique personnalisée
+              <span>Logo, enseigne et identité visuelle en matières nobles</span>
+            </div>
+          </div>
+          <div class="fab-item">
+            <div class="fab-dot"></div>
+            <div class="fab-text">
+              Trophées & cadeaux corporatifs
+              <span>Reconnaissance et souvenir sur mesure à votre image</span>
+            </div>
+          </div>
+          <div class="fab-item">
+            <div class="fab-dot"></div>
+            <div class="fab-text">
+              Prototypes & pièces techniques
+              <span>R&D rapide, maquettes fonctionnelles et petites séries</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fab-visual reveal reveal-delay-3">
+        <div class="fab-display">
+          <div class="fab-corner tl"></div>
+          <div class="fab-corner tr"></div>
+          <div class="fab-corner bl"></div>
+          <div class="fab-corner br"></div>
+          <div class="fab-3d-text">
+            AV<br>
+            TECH<br>
+            3D
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="section-label reveal">Travaillons ensemble</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Votre projet,<br>
+          notre <em>signature</em>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Vous avez un projet en tête ? Qu'il s'agisse d'un événement, d'un développement web, d'une installation audio ou d'une création sur mesure — contactez-nous et donnons vie à votre vision.
+        </p>
+        <div class="contact-links reveal reveal-delay-3">
+          <a class="contact-link" href="https://andrewsignature.com" target="_blank">
+            <span class="contact-link-icon">🌐</span>
+            andrewsignature.com
+          </a>
+          <a class="contact-link" href="mailto:info@andrewsignature.com">
+            <span class="contact-link-icon">✉️</span>
+            info@andrewsignature.com
+          </a>
+          <a class="contact-link" href="tel:+15141234567">
+            <span class="contact-link-icon">📞</span>
+            Montréal, Québec, Canada
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input class="form-input" type="text" placeholder="Votre prénom">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input class="form-input" type="text" placeholder="Votre nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Courriel</label>
+          <input class="form-input" type="email" placeholder="votre@courriel.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type de projet</label>
+          <select class="form-input" style="appearance:none;">
+            <option value="" style="background:#0f1535">Sélectionner un service...</option>
+            <option style="background:#0f1535">Développement web & IT</option>
+            <option style="background:#0f1535">Audio professionnel</option>
+            <option style="background:#0f1535">Éclairage événementiel</option>
+            <option style="background:#0f1535">DJ & Animation</option>
+            <option style="background:#0f1535">Impression 3D</option>
+            <option style="background:#0f1535">Découpe laser</option>
+            <option style="background:#0f1535">Événement complet</option>
+            <option style="background:#0f1535">Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Décrivez votre projet, vos besoins et votre échéancier..."></textarea>
+        </div>
+        <button class="form-submit" type="button" onclick="handleSubmit(this)">
+          Envoyer ma demande <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Andrew Signature</div>
+      <div class="footer-mono">AV · TECH · 3D — Montréal, Québec</div>
+    </div>
+    <div class="footer-copy">© 2025 Andrew Signature. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .service-item, .event-card, .fab-item, .about-pillar').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.width = '50px'; ring.style.height = '50px';
+      ring.style.borderColor = 'rgba(126,184,212,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(126,184,212,0.5)';
+    });
+  });
+
+
+
+  // Responsive hamburger menu
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.getElementById('navLinks');
+
+  function closeMobileMenu() {
+    navToggle?.classList.remove('active');
+    navLinks?.classList.remove('active');
+    navToggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('active');
+    navToggle.classList.toggle('active', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    const isMobile = window.innerWidth <= 900;
+    if (window.scrollY > 80) { nav.style.padding = isMobile ? '0.85rem 1.5rem' : '1rem 4rem'; }
+    else { nav.style.padding = isMobile ? '1rem 1.5rem' : '1.5rem 4rem'; }
+  });
+
+  // Form submit feedback
+  function handleSubmit(btn) {
+    btn.innerHTML = '✓ Message envoyé !';
+    btn.style.background = 'rgba(126,184,212,0.3)';
+    btn.style.color = 'var(--accent)';
+    btn.style.border = '1px solid var(--accent)';
+    setTimeout(() => {
+      btn.innerHTML = 'Envoyer ma demande <span>→</span>';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.border = '';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
